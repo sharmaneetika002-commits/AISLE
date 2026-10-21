@@ -1,0 +1,987 @@
+/* =========================================================
+   AISLE — ACCOUNT PAGE
+   =========================================================
+
+   IMPORTANT:
+   This file contains ONLY Account-page styles.
+
+   The shared navbar is controlled by:
+       navbar.html
+       navbar.css
+       navbar.js
+
+   DO NOT add navbar styles to this file.
+   ========================================================= */
+
+
+/* =========================================================
+   ACCOUNT COLOUR SYSTEM
+   ========================================================= */
+
+:root {
+    --account-cream: #eee9e1;
+    --account-cream-light: #f8f5f0;
+    --account-cream-white: #fbf9f6;
+
+    --account-espresso: #30251f;
+    --account-brown: #44362d;
+    --account-muted-brown: #7b7068;
+
+    --account-caramel: #9a7048;
+    --account-soft-brown: #ded4c9;
+
+    --account-border: #ddd4ca;
+
+    --account-success-bg: #e4ede4;
+    --account-success-text: #58715d;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+/*
+   Keep this generic reset safe.
+
+   Navbar.css has more specific selectors for navbar links,
+   so this will NOT override the shared navbar appearance.
+*/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================================================
+   ACCOUNT PAGE
+   ========================================================= */
+
+.account-page {
+    width: 100%;
+    max-width: 1350px;
+
+    margin: 0 auto;
+
+    padding: 0 30px 90px;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+   ========================================================= */
+
+.breadcrumb {
+    padding-top: 27px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    font-size: 13px;
+
+    color: var(--account-muted-brown);
+}
+
+
+.breadcrumb strong {
+    font-weight: 500;
+
+    color: var(--account-brown);
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.account-intro {
+    padding: 25px 0 35px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.eyebrow {
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    color: var(--account-caramel);
+
+    font-weight: 600;
+
+    margin-bottom: 9px;
+}
+
+
+.account-intro h1 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 51px;
+
+    font-weight: 400;
+
+    letter-spacing: -1px;
+}
+
+
+.intro-text {
+    margin-top: 8px;
+
+    color: var(--account-muted-brown);
+
+    font-size: 14px;
+}
+
+
+.intro-decoration {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-style: italic;
+
+    color: #9b8068;
+
+    font-size: 23px;
+
+    line-height: 1.2;
+
+    transform: rotate(-4deg);
+
+    margin-right: 70px;
+}
+
+
+/* =========================================================
+   ACCOUNT LAYOUT
+   ========================================================= */
+
+.account-layout {
+    display: grid;
+
+    grid-template-columns: 260px 1fr;
+
+    gap: 25px;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.account-sidebar {
+    background:
+        rgba(250, 248, 244, 0.85);
+
+    border-radius: 18px;
+
+    padding: 17px 15px;
+
+    min-height: 525px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(60, 43, 32, 0.045);
+}
+
+
+.sidebar-item {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    color: var(--account-brown);
+
+    font-size: 13px;
+
+    text-align: left;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.sidebar-item:hover {
+    background: #e9e2d9;
+}
+
+
+.sidebar-item.active {
+    background:
+        var(--account-soft-brown);
+
+    font-weight: 600;
+}
+
+
+.sidebar-symbol {
+    width: 21px;
+
+    text-align: center;
+
+    font-size: 18px;
+}
+
+
+.sidebar-icon {
+    width: 21px;
+    height: 21px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.sidebar-icon svg {
+    width: 20px;
+    height: 20px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.5;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+.sidebar-divider {
+    height: 1px;
+
+    background:
+        var(--account-border);
+
+    margin: 18px 9px;
+}
+
+
+.sidebar-item.logout {
+    color: #8b513e;
+}
+
+
+/* =========================================================
+   PROFILE CARD
+   ========================================================= */
+
+.profile-card {
+    min-height: 215px;
+
+    border-radius: 18px;
+
+    padding: 32px 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 27px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(224, 215, 204, 0.97),
+            rgba(224, 215, 204, 0.78)
+        ),
+        url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1400");
+
+    background-size: cover;
+
+    background-position: center;
+}
+
+
+.profile-image-wrapper {
+    position: relative;
+
+    flex-shrink: 0;
+}
+
+
+.profile-image {
+    width: 135px;
+    height: 135px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 5px solid #f8f4ee;
+
+    box-shadow:
+        0 8px 25px
+        rgba(50, 38, 29, 0.13);
+}
+
+
+.profile-edit-button {
+    position: absolute;
+
+    bottom: 2px;
+    right: -3px;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    border: 3px solid #f8f4ee;
+
+    background: white;
+
+    font-size: 14px;
+
+    color: var(--account-brown);
+}
+
+
+.profile-information h2 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-weight: 400;
+
+    font-size: 31px;
+
+    margin-bottom: 6px;
+}
+
+
+.profile-information p {
+    color: #70645c;
+
+    font-size: 14px;
+
+    margin-bottom: 7px;
+}
+
+
+.profile-information span {
+    color: #897c72;
+
+    font-size: 12px;
+}
+
+
+.edit-profile-button {
+    position: absolute;
+
+    right: 32px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: #f8f4ee;
+
+    color: var(--account-brown);
+
+    border-radius: 30px;
+
+    padding: 12px 18px;
+
+    font-size: 12px;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.edit-profile-button:hover {
+    transform:
+        translateY(-50%)
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.quick-links-section,
+.orders-section {
+    margin-top: 30px;
+}
+
+
+.section-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+
+.section-heading h2 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 25px;
+
+    font-weight: 400;
+}
+
+
+.view-all {
+    border: none;
+
+    background: transparent;
+
+    text-decoration: underline;
+
+    font-size: 12px;
+
+    color: var(--account-brown);
+}
+
+
+/* =========================================================
+   QUICK CARDS
+   ========================================================= */
+
+.quick-links-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+
+.quick-card {
+    min-height: 120px;
+
+    border: 1px solid
+        rgba(70, 52, 40, 0.06);
+
+    border-radius: 15px;
+
+    background:
+        var(--account-cream-white);
+
+    padding: 20px 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    text-align: left;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.quick-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(55, 40, 30, 0.08);
+}
+
+
+.quick-icon {
+    width: 45px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #e9e2da;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.quick-icon svg {
+    width: 21px;
+    height: 21px;
+
+    fill: none;
+
+    stroke: var(--account-brown);
+
+    stroke-width: 1.5;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+.quick-card-text {
+    flex: 1;
+}
+
+
+.quick-card h3 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    margin-bottom: 6px;
+}
+
+
+.quick-card p {
+    color: #81756c;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+
+.card-arrow {
+    font-size: 20px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.quick-card:hover .card-arrow {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   ORDER CARD
+   ========================================================= */
+
+.order-card {
+    background:
+        var(--account-cream-white);
+
+    border-radius: 15px;
+
+    padding: 12px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 19px;
+
+    box-shadow:
+        0 7px 20px
+        rgba(55, 40, 30, 0.035);
+}
+
+
+.order-card img {
+    width: 110px;
+    height: 78px;
+
+    border-radius: 8px;
+
+    object-fit: cover;
+}
+
+
+.order-details {
+    flex: 1;
+}
+
+
+.order-details h3 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    margin-bottom: 5px;
+}
+
+
+.order-details p,
+.order-details span {
+    display: block;
+
+    color: #80746b;
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+
+.order-status {
+    background:
+        var(--account-success-bg);
+
+    color:
+        var(--account-success-text);
+
+    border-radius: 20px;
+
+    padding: 8px 14px;
+
+    font-size: 11px;
+}
+
+
+.order-arrow {
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   LOGOUT MODAL
+   ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(45, 34, 27, 0.35);
+
+    backdrop-filter: blur(4px);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 2000;
+}
+
+
+.modal-overlay.show {
+    display: flex;
+}
+
+
+.logout-modal {
+    width:
+        min(
+            390px,
+            calc(100% - 35px)
+        );
+
+    background: #f8f5f0;
+
+    border-radius: 18px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 60px
+        rgba(30, 20, 15, 0.18);
+}
+
+
+.modal-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    margin:
+        auto auto 17px;
+
+    background: #e7ded4;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--account-brown);
+
+    font-size: 20px;
+}
+
+
+.logout-modal h2 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-weight: 400;
+
+    font-size: 25px;
+
+    margin-bottom: 9px;
+}
+
+
+.logout-modal p {
+    color:
+        var(--account-muted-brown);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+}
+
+
+.modal-buttons {
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.modal-buttons button {
+    flex: 1;
+
+    height: 43px;
+
+    border-radius: 25px;
+
+    cursor: pointer;
+}
+
+
+.cancel-button {
+    background: transparent;
+
+    border: 1px solid
+        var(--account-border);
+
+    color:
+        var(--account-brown);
+}
+
+
+.confirm-button {
+    background:
+        var(--account-espresso);
+
+    border: none;
+
+    color: white;
+}
+
+
+.confirm-button:hover {
+    background:
+        var(--account-caramel);
+}
+
+
+/* =========================================================
+   RESPONSIVE — ACCOUNT PAGE ONLY
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .account-layout {
+        grid-template-columns:
+            220px 1fr;
+    }
+
+
+    .quick-links-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .account-page {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+
+    .account-intro {
+        padding-top: 25px;
+    }
+
+
+    .account-intro h1 {
+        font-size: 40px;
+    }
+
+
+    .intro-decoration {
+        display: none;
+    }
+
+
+    .account-layout {
+        grid-template-columns: 1fr;
+    }
+
+
+    .account-sidebar {
+        min-height: auto;
+    }
+
+
+    .profile-card {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 30px 20px;
+    }
+
+
+    .edit-profile-button {
+        position: static;
+
+        transform: none;
+
+        margin-top: 5px;
+    }
+
+
+    .edit-profile-button:hover {
+        transform: translateY(-2px);
+    }
+
+
+    .order-card {
+        flex-wrap: wrap;
+    }
+
+
+    .order-status {
+        margin-left: auto;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+    .account-intro h1 {
+        font-size: 35px;
+    }
+
+
+    .profile-image {
+        width: 115px;
+        height: 115px;
+    }
+
+
+    .profile-information h2 {
+        font-size: 26px;
+    }
+
+
+    .order-card img {
+        width: 90px;
+        height: 70px;
+    }
+
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+}
+.profile-initial {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #2b2620;
+    color: #f5f1e9;
+
+    font-size: 72px;
+    font-weight: 500;
+}

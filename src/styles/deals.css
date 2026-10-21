@@ -1,0 +1,712 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+
+/* ================= GENERAL ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    background: #f3f0e9;
+    color: #29251f;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* ================= HERO ================= */
+
+.deals-hero {
+    min-height: 600px;
+
+    position: relative;
+
+    background-image:
+        url("/assets/hero-room.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(35, 28, 21, 0.72),
+            rgba(35, 28, 21, 0.22),
+            rgba(35, 28, 21, 0.05)
+        );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 1200px;
+    width: 100%;
+
+    margin: auto;
+    padding: 70px 60px;
+
+    color: #f8f5ef;
+}
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.hero-content h1 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(50px, 6vw, 78px);
+    line-height: 0.98;
+
+    font-weight: 400;
+
+    max-width: 700px;
+}
+
+.hero-content h1 em {
+    font-style: italic;
+}
+
+.hero-description {
+    max-width: 500px;
+
+    font-size: 16px;
+    line-height: 1.7;
+
+    margin: 28px 0;
+}
+
+.hero-button,
+.light-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 15px 25px;
+
+    background: #f3f0e9;
+    color: #302b25;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+.hero-button:hover,
+.light-button:hover {
+    background: #fff;
+    transform: translateY(-2px);
+}
+
+
+/* ================= OFFER STRIP ================= */
+
+.offer-strip {
+    min-height: 105px;
+
+    background: #e5ded3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 55px;
+}
+
+.offer-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.offer-item i {
+    font-size: 20px;
+    color: #73553c;
+}
+
+.offer-item strong,
+.offer-item span {
+    display: block;
+}
+
+.offer-item strong {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.offer-item span {
+    font-size: 12px;
+    color: #6e675e;
+}
+
+.offer-divider {
+    height: 35px;
+    width: 1px;
+    background: rgba(60, 53, 45, 0.2);
+}
+
+
+/* ================= DEALS SECTION ================= */
+
+.deals-section {
+    max-width: 1200px;
+    margin: auto;
+
+    padding: 110px 35px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    margin-bottom: 55px;
+}
+
+.section-heading h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 50px;
+    line-height: 1.05;
+
+    font-weight: 400;
+
+    max-width: 520px;
+}
+
+.section-heading h2 em {
+    font-style: italic;
+}
+
+.section-description {
+    max-width: 340px;
+
+    color: #716b63;
+
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+
+/* ================= PRODUCTS ================= */
+
+.products-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 22px;
+}
+
+.product-card {
+    background: #ebe6de;
+
+    transition: 0.35s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+}
+
+
+/* PRODUCT IMAGE */
+
+.product-image {
+    height: 330px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #ded7cd;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.04);
+}
+
+
+/* DISCOUNT */
+
+.discount {
+    position: absolute;
+
+    top: 15px;
+    left: 15px;
+
+    padding: 7px 11px;
+
+    background: #765238;
+    color: white;
+
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+
+/* WISHLIST */
+
+.wishlist {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(246, 243, 237, 0.92);
+
+    color: #302b25;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.wishlist:hover {
+    background: #fff;
+    transform: scale(1.05);
+}
+
+.wishlist.active {
+    color: #765238;
+}
+
+
+/* PRODUCT INFO */
+
+.product-info {
+    padding: 23px 21px 25px;
+}
+
+.category {
+    font-size: 10px;
+    letter-spacing: 2px;
+
+    color: #8b7c6b;
+
+    margin-bottom: 9px;
+}
+
+.product-info h3 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 22px;
+    font-weight: 400;
+
+    margin-bottom: 9px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 13px;
+}
+
+.rating span {
+    letter-spacing: 2px;
+    font-size: 11px;
+}
+
+.rating small {
+    color: #777069;
+    font-size: 11px;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 19px;
+}
+
+.sale-price {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.old-price {
+    color: #918a81;
+    font-size: 13px;
+    text-decoration: line-through;
+}
+
+
+/* DEAL BUTTON */
+
+.deal-button {
+    width: 100%;
+
+    border: 1px solid #39332d;
+    background: transparent;
+
+    padding: 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    transition: 0.3s ease;
+}
+
+.deal-button:hover {
+    background: #39332d;
+    color: #fff;
+}
+
+
+/* ================= SALE BANNER ================= */
+
+.sale-banner {
+    min-height: 430px;
+
+    background:
+        linear-gradient(
+            rgba(47, 38, 29, 0.55),
+            rgba(47, 38, 29, 0.55)
+        ),
+        url("/assets/category-living.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #f8f5ef;
+}
+
+.sale-banner-content {
+    max-width: 650px;
+}
+
+.sale-banner h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 52px;
+    line-height: 1.05;
+
+    font-weight: 400;
+}
+
+.sale-banner h2 em {
+    font-style: italic;
+}
+
+.sale-banner p:not(.eyebrow) {
+    margin: 20px auto 28px;
+
+    max-width: 500px;
+
+    line-height: 1.7;
+}
+
+.light-button {
+    background: #f2eee7;
+}
+
+
+/* ================= COUNTDOWN ================= */
+
+.countdown-section {
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 100px 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 60px;
+}
+
+.countdown-text {
+    max-width: 490px;
+}
+
+.countdown-text h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 45px;
+    font-weight: 400;
+
+    line-height: 1.05;
+}
+
+.countdown-text h2 em {
+    font-style: italic;
+}
+
+.countdown-text > p:last-child {
+    margin-top: 20px;
+
+    color: #716b63;
+
+    line-height: 1.7;
+}
+
+
+/* TIMER */
+
+.countdown {
+    display: flex;
+    align-items: center;
+}
+
+.time-box {
+    width: 85px;
+
+    text-align: center;
+}
+
+.time-box span {
+    display: block;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 42px;
+}
+
+.time-box small {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #81786d;
+}
+
+.colon {
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    padding-bottom: 15px;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #302a24;
+    color: #eee9e1;
+
+    padding: 70px 35px 25px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding-bottom: 60px;
+}
+
+.footer-logo {
+    font-family: "Playfair Display", serif;
+
+    font-size: 30px;
+    letter-spacing: 6px;
+}
+
+.footer-brand p {
+    color: #aaa299;
+
+    max-width: 250px;
+
+    margin-top: 17px;
+
+    line-height: 1.7;
+
+    font-size: 13px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 100px;
+}
+
+.footer-links h4 {
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 18px;
+}
+
+.footer-links a {
+    display: block;
+
+    color: #aaa299;
+
+    font-size: 13px;
+
+    margin-bottom: 11px;
+
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding-top: 22px;
+
+    border-top: 1px solid rgba(255,255,255,0.12);
+
+    display: flex;
+    justify-content: space-between;
+
+    color: #888078;
+
+    font-size: 11px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 950px) {
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .offer-strip {
+        gap: 25px;
+    }
+
+    .countdown-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .hero-content {
+        padding: 60px 30px;
+    }
+
+    .hero-content h1 {
+        font-size: 48px;
+    }
+
+    .offer-strip {
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .offer-divider {
+        width: 80%;
+        height: 1px;
+    }
+
+    .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    .section-heading h2 {
+        font-size: 40px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image {
+        height: 380px;
+    }
+
+    .sale-banner h2 {
+        font-size: 40px;
+    }
+
+    .countdown {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .time-box {
+        width: 65px;
+    }
+
+    .time-box span {
+        font-size: 32px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .footer-links {
+        gap: 60px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}

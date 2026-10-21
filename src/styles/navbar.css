@@ -1,0 +1,399 @@
+/* =========================================================
+   AISLE — Navbar styles
+   Shared across every page. Edit here once, updates everywhere.
+   ========================================================= */
+
+:root {
+
+  /* ---------- NAVBAR COLOURS ---------- */
+
+  --nav-bg: #f5f3ef;
+  --nav-text: #2b2620;
+  --nav-text-soft: #55504a;
+  --nav-accent: #2b2620;
+
+  --nav-badge-bg: #3a2f26;
+  --nav-badge-fg: #ffffff;
+
+  --nav-border: rgba(43, 38, 32, 0.12);
+
+  --nav-height: 84px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+.site-header,
+.site-header * {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN NAVBAR
+   ========================================================= */
+
+.site-header {
+  background: var(--nav-bg);
+  width: 100%;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1000;
+}
+
+
+/* =========================================================
+   NAV CONTAINER
+   ========================================================= */
+
+.nav-container {
+  max-width: 1440px;
+  margin: 0 auto;
+
+  height: var(--nav-height);
+
+  padding: 0 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 32px;
+}
+
+
+/* =========================================================
+   BRAND / LOGO
+   ========================================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  text-decoration: none;
+
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  height: 42px;
+  width: 42px;
+
+  object-fit: contain;
+
+  border-radius: 10px;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+
+  display: block;
+}
+
+.brand-text {
+  font-family: Georgia, 'Times New Roman', serif;
+
+  font-size: 26px;
+  letter-spacing: 6px;
+
+  color: var(--nav-text);
+
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+   ========================================================= */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 40px;
+
+  font-family: Georgia, 'Times New Roman', serif;
+
+  font-size: 16px;
+}
+
+.nav-links a {
+  color: var(--nav-text-soft);
+
+  text-decoration: none;
+
+  padding-bottom: 4px;
+
+  border-bottom: 1px solid transparent;
+
+  transition:
+    color .15s ease,
+    border-color .15s ease;
+
+  white-space: nowrap;
+}
+
+.nav-links a:hover {
+  color: var(--nav-text);
+}
+
+.nav-links a.active {
+  color: var(--nav-text);
+
+  border-bottom-color: var(--nav-text);
+}
+
+
+/* =========================================================
+   ICONS
+   Wishlist / Cart / Account
+   ========================================================= */
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 26px;
+
+  color: var(--nav-text);
+
+  text-decoration: none;
+}
+
+.icon-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+
+/* =========================================================
+   CART BADGE
+   ========================================================= */
+
+.badge {
+  position: absolute;
+
+  top: -8px;
+  right: -10px;
+
+  min-width: 18px;
+  height: 18px;
+
+  padding: 0 4px;
+
+  border-radius: 999px;
+
+  background: var(--nav-badge-bg);
+
+  color: var(--nav-badge-fg);
+
+  font-size: 11px;
+
+  line-height: 18px;
+
+  text-align: center;
+
+  font-family: Arial, sans-serif;
+
+  font-weight: 600;
+}
+
+.badge[hidden] {
+  display: none;
+}
+
+
+/* =========================================================
+   ACCOUNT BUTTON
+   ========================================================= */
+
+.account-btn {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: var(--nav-accent);
+
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+
+  flex-shrink: 0;
+}
+
+.account-btn svg {
+  width: 20px;
+  height: 20px;
+
+  stroke: #fff;
+}
+
+.account-initial {
+  font-family: Arial, sans-serif;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   MOBILE TOGGLE
+   ========================================================= */
+
+.nav-toggle {
+  display: none;
+
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 5px;
+
+  width: 32px;
+  height: 32px;
+
+  background: none;
+
+  border: none;
+
+  cursor: pointer;
+
+  padding: 0;
+}
+
+.nav-toggle span {
+  display: block;
+
+  height: 2px;
+  width: 100%;
+
+  background: var(--nav-text);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .nav-container {
+    padding: 0 24px;
+  }
+
+  .nav-toggle {
+    display: flex;
+    order: 3;
+  }
+
+  .nav-links {
+    position: absolute;
+
+    top: var(--nav-height);
+
+    left: 0;
+    right: 0;
+
+    background: var(--nav-bg);
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 0;
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    transition: max-height .25s ease;
+
+    border-top: 1px solid var(--nav-border);
+  }
+
+  .nav-links.open {
+    max-height: 320px;
+  }
+
+  .nav-links a {
+    width: 100%;
+
+    padding: 14px 24px;
+
+    border-bottom: 1px solid var(--nav-border);
+  }
+
+  .nav-links a.active {
+    border-bottom: 1px solid var(--nav-border);
+
+    background: rgba(43, 38, 32, 0.06);
+  }
+
+  .brand-text {
+    font-size: 20px;
+    letter-spacing: 4px;
+  }
+
+  .brand-logo {
+    height: 34px;
+    width: 34px;
+  }
+}
+
+/* =========================================================
+   FORCE SHARED NAVBAR CONSISTENCY
+   This prevents page-specific CSS from changing the navbar.
+   ========================================================= */
+
+.site-header {
+  background: #f5f3ef  !important;
+  border-bottom: none !important;
+  height: auto !important;
+}
+
+.site-header .nav-container {
+  height: 84px;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: #b8b3aa;
+}
+
+.nav-container {
+  max-width: 1440px;
+  height: 84px;
+  margin: 0 auto;
+  padding: 0 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
