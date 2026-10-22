@@ -1,8 +1,17 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/style.css';
 
 export default function AboutPage() {
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setSubmitted(true);
+        event.target.reset();
+    };
+
     return (
         <main>
             {/* About Hero */}
@@ -49,7 +58,10 @@ export default function AboutPage() {
             {/* Image + Text */}
             <section className="about-story">
                 <div className="about-story-image">
-                    <img src="/assets/category-living.jpg" alt="Comfortable living room" />
+                    <img
+                        src="/assets/category-living.jpg"
+                        alt="Comfortable living room"
+                    />
                 </div>
 
                 <div className="about-story-content">
@@ -114,7 +126,10 @@ export default function AboutPage() {
 
             {/* Final Image */}
             <section className="about-final">
-                <img src="/assets/sale-room.jpg" alt="Aisle furniture collection" />
+                <img
+                    src="/assets/sale-room.jpg"
+                    alt="Aisle furniture collection"
+                />
                 <div className="about-final-text">
                     <p>MAKE YOUR SPACE YOUR OWN</p>
                     <h2>
@@ -125,6 +140,186 @@ export default function AboutPage() {
                         Shop the collection
                     </Link>
                 </div>
+            </section>
+
+            {/* Contact Us */}
+            <section className="about-contact" id="contact">
+                <div className="about-contact-heading">
+                    <p>WE'RE HERE FOR YOU</p>
+                    <h2>
+                        Let's talk.<br />
+                        <i>We're listening.</i>
+                    </h2>
+                    <p className="about-contact-description">
+                        Need help with an order, have a question about
+                        a product, or just want to get in touch?
+                        We'd love to hear from you.
+                    </p>
+                </div>
+
+                <div className="about-contact-details">
+                    <div className="contact-detail">
+                        <span className="contact-icon" aria-hidden="true">
+                            ✉
+                        </span>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>
+                                For general questions and assistance,
+                                reach out to our support team.
+                            </p>
+                            {/* Replace this sample address with your real one */}
+                            <a href="mailto:support@aisle.com">
+                                support@aisle.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="contact-detail">
+                        <span className="contact-icon" aria-hidden="true">
+                            ↗
+                        </span>
+                        <div>
+                            <h3>Product Questions</h3>
+                            <p>
+                                Need help choosing the right piece
+                                for your space?
+                            </p>
+                            <Link to="/products">
+                                Explore our collection
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Support Request Form */}
+            <section className="support-section" id="support">
+                <div className="support-heading">
+                    <p>HOW CAN WE HELP?</p>
+                    <h2>Submit a support request</h2>
+                    <p>
+                        Tell us a little about your issue and we'll
+                        have the details we need to assist you.
+                    </p>
+                </div>
+
+                <form
+                    className="support-form"
+                    onSubmit={handleSubmit}
+                >
+                    <div className="support-form-row">
+                        <div className="support-field">
+                            <label htmlFor="support-name">
+                                Full Name *
+                            </label>
+                            <input
+                                type="text"
+                                id="support-name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                autoComplete="name"
+                                required
+                            />
+                        </div>
+
+                        <div className="support-field">
+                            <label htmlFor="support-email">
+                                Email Address *
+                            </label>
+                            <input
+                                type="email"
+                                id="support-email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autoComplete="email"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div className="support-form-row">
+                        <div className="support-field">
+                            <label htmlFor="support-type">
+                                Request Type *
+                            </label>
+                            <select
+                                id="support-type"
+                                name="requestType"
+                                defaultValue=""
+                                required
+                            >
+                                <option value="" disabled>
+                                    Select a topic
+                                </option>
+                                <option value="Order and delivery">
+                                    Order and delivery
+                                </option>
+                                <option value="Product information">
+                                    Product information
+                                </option>
+                                <option value="Returns and refunds">
+                                    Returns and refunds
+                                </option>
+                                <option value="Payment issue">
+                                    Payment issue
+                                </option>
+                                <option value="Website issue">
+                                    Website issue
+                                </option>
+                                <option value="Other">
+                                    Other
+                                </option>
+                            </select>
+                        </div>
+
+                        <div className="support-field">
+                            <label htmlFor="support-order">
+                                Order ID
+                                <span className="optional-label">
+                                    (Optional)
+                                </span>
+                            </label>
+                            <input
+                                type="text"
+                                id="support-order"
+                                name="orderId"
+                                placeholder="e.g. AIS-1024"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="support-field">
+                        <label htmlFor="support-message">
+                            How can we help? *
+                        </label>
+                        <textarea
+                            id="support-message"
+                            name="message"
+                            rows="6"
+                            placeholder="Describe your question or issue..."
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="support-submit"
+                    >
+                        Submit Request <span aria-hidden="true">→</span>
+                    </button>
+
+                    {submitted && (
+                        <p
+                            className="support-success"
+                            role="status"
+                            aria-live="polite"
+                        >
+                            Thank you for reaching out! Your form
+                            passed validation. 
+                        </p>
+                    )}
+                </form>
             </section>
         </main>
     );
