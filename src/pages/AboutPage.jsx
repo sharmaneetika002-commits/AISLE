@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/style.css';
+import FAQSection from '../components/FAQSection';
 
 export default function AboutPage() {
     const [submitted, setSubmitted] = useState(false);
@@ -321,6 +322,7 @@ export default function AboutPage() {
                     )}
                 </form>
             </section>
+            <FAQSection />
         </main>
     );
 }
