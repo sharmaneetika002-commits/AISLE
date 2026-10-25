@@ -20,6 +20,12 @@ export default function SignupPage() {
     const [message, setMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
 
+    const [addressLine, setAddressLine] = useState('');
+    const [landmark, setLandmark] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [pinCode, setPinCode] = useState('');
+
     const handlePhoneInput = (e) => {
         const val = e.target.value.replace(/\D/g, '');
         setPhone(val);
@@ -53,14 +59,33 @@ export default function SignupPage() {
             return;
         }
 
+        
+        const hasAddress = [
+            addressLine,
+            landmark,
+            city,
+            state,
+            pinCode
+        ].some(value => value.trim() !== '');
+
         const user = {
             firstName: firstName.trim(),
             lastName: lastName.trim(),
             name: `${firstName} ${lastName}`.trim(),
             email: email.trim(),
             phone: phone.trim(),
-            password: password
+            password: password,
+            deliveryAddress: hasAddress
+                ? {
+                    addressLine: addressLine.trim(),
+                    landmark: landmark.trim(),
+                    city: city.trim(),
+                    state: state.trim(),
+                    pinCode: pinCode.trim()
+                }
+                : null
         };
+
 
         const res = signup(user);
         setMessage(res.message);
@@ -166,6 +191,69 @@ export default function SignupPage() {
                             </div>
                             {phoneError && <p className="phone-error" id="phoneError">{phoneError}</p>}
                         </div>
+
+                        
+                        <div className="form-group">
+                            <label htmlFor="addressLine">Delivery Address (Optional)</label>
+                            <input
+                                type="text"
+                                id="addressLine"
+                                placeholder="House number, street, or area"
+                                value={addressLine}
+                                onChange={(e) => setAddressLine(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="landmark">Landmark (Optional)</label>
+                            <input
+                                type="text"
+                                id="landmark"
+                                placeholder="Nearby landmark"
+                                value={landmark}
+                                onChange={(e) => setLandmark(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label htmlFor="city">City (Optional)</label>
+                                <input
+                                    type="text"
+                                    id="city"
+                                    placeholder="City"
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="state">State (Optional)</label>
+                                <input
+                                    type="text"
+                                    id="state"
+                                    placeholder="State"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="pinCode">PIN Code (Optional)</label>
+                            <input
+                                type="text"
+                                id="pinCode"
+                                inputMode="numeric"
+                                maxLength={6}
+                                placeholder="6-digit PIN code"
+                                value={pinCode}
+                                onChange={(e) =>
+                                    setPinCode(e.target.value.replace(/\D/g, ''))
+                                }
+                            />
+                        </div>
+
 
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
