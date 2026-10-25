@@ -969,6 +969,65 @@ export const products = [
     }
 
 ];;
+// Product details not available in the original data are marked as unspecified.
+export const productDetails = {
+    "oslo-sofa": {
+        description: "A three-seater sofa from the Aisle furniture catalogue.",
+        material: "Not specified in product data",
+        dimensions: "Not specified in product data",
+        availability: "Please contact us to confirm availability"
+    },
+    "arlo-chair": {
+        description: "A lounge chair from the Aisle furniture catalogue.",
+        material: "Not specified in product data",
+        dimensions: "Not specified in product data",
+        availability: "Please contact us to confirm availability"
+    },
+    "haven-dining-table": {
+        description: "A dining table from the Aisle furniture catalogue.",
+        material: "Not specified in product data",
+        dimensions: "Not specified in product data",
+        availability: "Please contact us to confirm availability"
+    }
+};
+
+// Demo data only, not genuine or verified customer reviews.
+export const demoReviews = {
+    "oslo-sofa": [
+        {
+            id: 1,
+            author: "Sample Customer 1",
+            rating: 5,
+            date: "2026-10-12",
+            text: "Sample review to demonstrate the review layout."
+        },
+        {
+            id: 2,
+            author: "Sample Customer 2",
+            rating: 4,
+            date: "2026-10-18",
+            text: "Sample review to test sorting by rating and date."
+        }
+    ],
+    "arlo-chair": [
+        {
+            id: 3,
+            author: "Sample Customer 3",
+            rating: 4,
+            date: "2026-10-15",
+            text: "Sample feedback for demonstrating the review interface."
+        }
+    ],
+    "haven-dining-table": [
+        {
+            id: 4,
+            author: "Sample Customer 4",
+            rating: 5,
+            date: "2026-10-20",
+            text: "Sample feedback for testing the rating filter."
+        }
+    ]
+};
 
 export const bestsellerProducts = [
 

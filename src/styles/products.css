@@ -699,3 +699,171 @@ button {
     }
 
 }
+
+/* ================= PRODUCT RATINGS ================= */
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+.review-stars {
+    color: #a77935;
+    letter-spacing: 2px;
+    font-size: 14px;
+}
+
+.product-rating span:last-child {
+    color: #888;
+    font-size: 11px;
+}
+
+
+/* ================= QUICK VIEW REVIEWS ================= */
+
+.quick-view-reviews {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid #eee;
+}
+
+.quick-view-reviews h4 {
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.review-demo-note {
+    color: #999;
+    font-size: 11px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+
+/* REVIEW SORTING AND FILTERING */
+
+.review-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.review-controls select {
+    min-width: 0;
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #333;
+    font-size: 11px;
+    outline: none;
+}
+
+.review-controls select:focus {
+    border-color: #777;
+}
+
+
+/* REVIEW LIST */
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.review-item {
+    padding-bottom: 18px;
+    border-bottom: 1px solid #eee;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.review-item-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.review-item-heading strong {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+.review-item-heading time {
+    flex-shrink: 0;
+    font-size: 10px;
+    color: #999;
+}
+
+.review-item .review-stars {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.review-item p {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+
+/* NO MATCHING REVIEWS */
+
+.no-reviews {
+    padding: 20px 12px;
+    background: #f8f7f4;
+    color: #888;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* ================= QUICK VIEW RESPONSIVE ================= */
+
+@media (max-width: 700px) {
+    .quick-view-overlay {
+        padding: 12px;
+    }
+
+    .quick-view-panel {
+        max-height: 94vh;
+    }
+
+    .quick-view-info {
+        padding: 28px 22px;
+    }
+
+    .quick-view-info h3 {
+        font-size: 25px;
+    }
+
+    .review-controls {
+        flex-direction: column;
+    }
+
+    .review-controls select {
+        width: 100%;
+        flex: auto;
+    }
+
+    .review-item-heading {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

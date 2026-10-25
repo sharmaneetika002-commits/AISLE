@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { products, money } from '../data/products';
+import { products, money, productDetails, demoReviews } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import '../styles/products.css';
@@ -19,6 +19,8 @@ export default function ProductsPage() {
     const [selectedPrice, setSelectedPrice] = useState('all');
     const [sortValue, setSortValue] = useState('featured');
     const [quickViewProduct, setQuickViewProduct] = useState(null);
+    const [reviewSort, setReviewSort] = useState('newest');
+    const [reviewRatingFilter, setReviewRatingFilter] = useState('all');
 
     // Sync room from URL search params if it changes
     useEffect(() => {
@@ -59,16 +61,15 @@ export default function ProductsPage() {
         let list = products.filter(product => {
             // Category match
             const normalizedCategory = (product.category || '')
-                .toLowerCase()
-                .replace(/\s+/g, ' ')
-                .replace('sofas', 'sofa')
-                .replace('beds', 'bed')
-                .replace('chairs', 'chair')
-                .replace('tables', 'table')
-                .replace('lamps', 'lamp')
-                .replace('storage', 'storage')
-                .replace('dining tables', 'dining')
-                .replace('outdoor furniture', 'outdoor');
+            .toLowerCase()
+            .trim()
+            .replace('dining tables', 'dining')
+            .replace('outdoor furniture', 'outdoor')
+            .replace('sofas', 'sofa')
+            .replace('beds', 'bed')
+            .replace('chairs', 'chair')
+            .replace('tables', 'table')
+            .replace('lamps', 'lamp');
 
             const categoryMatch =
                 selectedCategories.length === 0 ||
@@ -110,6 +111,44 @@ export default function ProductsPage() {
 
         return list;
     }, [selectedCategories, selectedRooms, selectedStyles, selectedPrice, sortValue]);
+        
+    const quickViewAllReviews = useMemo(
+        () => quickViewProduct
+            ? (demoReviews[quickViewProduct.id] || [])
+            : [],
+        [quickViewProduct]
+    );
+
+    const quickViewReviews = useMemo(() => {
+        let reviews = [...quickViewAllReviews];
+
+        if (reviewRatingFilter !== 'all') {
+            reviews = reviews.filter(
+                review => review.rating === Number(reviewRatingFilter)
+            );
+        }
+
+        if (reviewSort === 'newest') {
+            reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else if (reviewSort === 'oldest') {
+            reviews.sort((a, b) => new Date(a.date) - new Date(b.date));
+        } else if (reviewSort === 'rating-high') {
+            reviews.sort((a, b) => b.rating - a.rating);
+        } else if (reviewSort === 'rating-low') {
+            reviews.sort((a, b) => a.rating - b.rating);
+        }
+
+        return reviews;
+    }, [quickViewAllReviews, reviewRatingFilter, reviewSort]);
+
+    const quickViewAverageRating = quickViewAllReviews.length
+        ? (
+            quickViewAllReviews.reduce(
+                (total, review) => total + review.rating,
+                0
+            ) / quickViewAllReviews.length
+        ).toFixed(1)
+        : null;
 
     return (
         <main>
@@ -447,6 +486,25 @@ export default function ProductsPage() {
                                                 <h2 className="product-name">{product.name}</h2>
                                                 <p className="category">{product.category}</p>
                                                 <p className="price">{money(product.price)}</p>
+                                                {(() => {
+                                                    const cardReviews = demoReviews[product.id] || [];
+                                                    const cardRating = cardReviews.length
+                                                    ? (
+                                                        cardReviews.reduce(
+                                                            (total, review) => total + review.rating,
+                                                            0
+                                                        ) / cardReviews.length
+                                                    ).toFixed(1)
+                                                    : null;
+                                                    
+                                                return (
+                                                    <p className="product-rating">
+                                                        {cardRating
+                                                        ? `★ ${cardRating} (${cardReviews.length} sample reviews)`
+                                                        : 'No reviews yet'}
+                                                        </p>
+                                                        );
+                                                        })()}
 
                                                 <div className="card-buttons">
                                                     <button
@@ -488,45 +546,196 @@ export default function ProductsPage() {
 
             {/* QUICK VIEW MODAL */}
             {quickViewProduct && (
-                <div className="quick-view-overlay" id="quickView">
-                    <div className="quick-view-panel">
+                <div
+                    className="quick-view-overlay"
+                    id="quickView"
+                    onClick={() => setQuickViewProduct(null)}
+                >
+                    <div
+                        className="quick-view-panel"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="qvName"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <button
+                            type="button"
                             className="quick-view-close"
-                            id="quickViewClose"
-                            aria-label="Close"
+                            aria-label="Close quick view"
                             onClick={() => setQuickViewProduct(null)}
                         >
                             &times;
                         </button>
 
                         <div className="quick-view-image">
-                            <img id="qvImage" src={quickViewProduct.image} alt={quickViewProduct.name} />
+                            <img
+                                src={quickViewProduct.image}
+                                alt={quickViewProduct.name}
+                            />
                         </div>
 
                         <div className="quick-view-info">
-                            <span id="qvCategory">{quickViewProduct.category}</span>
+                            <span>{quickViewProduct.category}</span>
+
                             <h3 id="qvName">{quickViewProduct.name}</h3>
-                            <p id="qvDims">{quickViewProduct.style ? `Style: ${quickViewProduct.style.toUpperCase()}` : ''}</p>
-                            <strong id="qvPrice">{money(quickViewProduct.price)}</strong>
+
+                            <p className="quick-view-style">
+                                {quickViewProduct.style
+                                    ? `Style: ${quickViewProduct.style.toUpperCase()}`
+                                    : 'Style not specified'}
+                            </p>
+
+                            <strong>{money(quickViewProduct.price)}</strong>
+
+                            {quickViewAverageRating ? (
+                                <p className="quick-view-rating">
+                                    ★ {quickViewAverageRating} / 5
+                                    ({quickViewAllReviews.length} sample reviews)
+                                </p>
+                            ) : (
+                                <p className="quick-view-rating">
+                                    No reviews yet
+                                </p>
+                            )}
+
+                            <section className="quick-view-details">
+                                <h4>Product details</h4>
+
+                                <p>
+                                    {productDetails[quickViewProduct.id]?.description
+                                        || `${quickViewProduct.name} is part of the Aisle furniture collection.`}
+                                </p>
+
+                                <dl>
+                                    <div>
+                                        <dt>Material</dt>
+                                        <dd>
+                                            {productDetails[quickViewProduct.id]?.material
+                                                || 'Not specified in product data'}
+                                        </dd>
+                                    </div>
+
+                                    <div>
+                                        <dt>Dimensions</dt>
+                                        <dd>
+                                            {productDetails[quickViewProduct.id]?.dimensions
+                                                || 'Not specified in product data'}
+                                        </dd>
+                                    </div>
+
+                                    <div>
+                                        <dt>Availability</dt>
+                                        <dd>
+                                            {productDetails[quickViewProduct.id]?.availability
+                                                || 'Please contact us to confirm availability'}
+                                        </dd>
+                                    </div>
+                                </dl>
+                            </section>
 
                             <div className="quick-view-actions">
                                 <button
+                                    type="button"
                                     className="add-btn"
                                     style={{ marginRight: '10px' }}
-                                    onClick={() => {
-                                        addToCart(quickViewProduct);
-                                    }}
+                                    onClick={() => addToCart(quickViewProduct)}
                                 >
                                     Add to Cart
                                 </button>
+
                                 <button
+                                    type="button"
                                     className="quick-view-heart"
-                                    id="qvHeart"
                                     onClick={() => toggleWishlist(quickViewProduct)}
                                 >
-                                    {isWishlisted(quickViewProduct.id) ? '♥ Wishlisted' : '♡ Wishlist'}
+                                    {isWishlisted(quickViewProduct.id)
+                                        ? '♥ Wishlisted'
+                                        : '♡ Wishlist'}
                                 </button>
                             </div>
+
+                            <section className="quick-view-reviews">
+                                <h4>Customer reviews</h4>
+
+                                <p className="review-demo-note">
+                                    Demo reviews for project presentation only.
+                                    These are not verified customer reviews.
+                                </p>
+
+                                {quickViewAllReviews.length > 0 ? (
+                                    <>
+                                        <div className="review-controls">
+                                            <label>
+                                                Sort by
+                                                <select
+                                                    value={reviewSort}
+                                                    onChange={(e) => setReviewSort(e.target.value)}
+                                                >
+                                                    <option value="newest">Newest first</option>
+                                                    <option value="oldest">Oldest first</option>
+                                                    <option value="rating-high">Highest rating</option>
+                                                    <option value="rating-low">Lowest rating</option>
+                                                </select>
+                                            </label>
+
+                                            <label>
+                                                Rating
+                                                <select
+                                                    value={reviewRatingFilter}
+                                                    onChange={(e) => setReviewRatingFilter(e.target.value)}
+                                                >
+                                                    <option value="all">All ratings</option>
+                                                    <option value="5">5 stars</option>
+                                                    <option value="4">4 stars</option>
+                                                    <option value="3">3 stars</option>
+                                                    <option value="2">2 stars</option>
+                                                    <option value="1">1 star</option>
+                                                </select>
+                                            </label>
+                                        </div>
+
+                                        {quickViewReviews.length > 0 ? (
+                                            <div className="review-list">
+                                                {quickViewReviews.map((review) => (
+                                                    <article
+                                                        className="review-item"
+                                                        key={review.id}
+                                                    >
+                                                        <div className="review-item-heading">
+                                                            <strong>{review.author}</strong>
+                                                            <span className="review-stars">
+                                                                {'★'.repeat(review.rating)}
+                                                                {'☆'.repeat(5 - review.rating)}
+                                                            </span>
+                                                        </div>
+
+                                                        <time dateTime={review.date}>
+                                                            {new Date(`${review.date}T00:00:00`).toLocaleDateString(
+                                                                'en-IN',
+                                                                {
+                                                                    day: 'numeric',
+                                                                    month: 'short',
+                                                                    year: 'numeric'
+                                                                }
+                                                            )}
+                                                        </time>
+
+                                                        <p>{review.text}</p>
+                                                    </article>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <p className="no-reviews">
+                                                No demo reviews match this rating filter.
+                                            </p>
+                                        )}
+                                    </>
+                                ) : (
+                                    <p className="no-reviews">
+                                        No reviews have been added for this product yet.
+                                    </p>
+                                )}
+                            </section>
                         </div>
                     </div>
                 </div>
