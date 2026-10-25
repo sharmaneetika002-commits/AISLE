@@ -1,21 +1,3 @@
-/* =========================================================
-   AISLE — PRODUCTS PAGE STYLES
-   =========================================================
-
-   IMPORTANT:
-   The shared navbar is controlled ONLY by:
-       navbar.html / the header markup
-       navbar.css
-       navbar.js
-
-   Navbar styles are intentionally NOT redefined here so this
-   page cannot interfere with the shared navbar.
-
-   Every other token (colors, type, spacing, borders, hover
-   behaviour) mirrors categories.css so this page reads as part
-   of the same site.
-   ========================================================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -559,24 +541,62 @@ button {
     z-index: 2;
 }
 
+
+/* QUICK VIEW IMAGE
+   The info column is tall (details + reviews). The image cell used to be
+   height: 100% (and min-height: 320px), so it stretched to the full height
+   of that column and the picture floated inside a huge empty box.
+   Now the cell sizes to the image itself (width 100%, height auto), stays
+   pinned to the top while the details scroll, and never exceeds the panel
+   height. object-fit: contain guarantees the whole piece is always visible. */
+
 .quick-view-image {
+    position: relative;
+    min-width: 0;
+    background: #e9e6e0;
+    overflow: hidden;
+}
+
+/* soft blurred copy of the same photo fills any space the picture doesn't cover */
+.quick-view-image::before {
+    content: "";
+    position: absolute;
+    inset: -24px;
+    background-image: var(--qv-image);
+    background-size: cover;
+    background-position: center;
+    filter: blur(24px) brightness(.94);
+}
+
+/* the stage stays pinned in view while the details scroll,
+   and centres the full, uncropped photo inside it */
+.quick-view-image-stage {
+    position: sticky;
+    top: 0;
     height: 100%;
-    min-height: 320px;
-    background: #f0efeb;
+    max-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .quick-view-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    position: relative;
     display: block;
+    width: 100%;
+    height: auto;
+    max-height: 88vh;
+    object-fit: contain;
+    object-position: center;
 }
+
 
 .quick-view-info {
     padding: 45px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
 }
 
 .quick-view-info > span {
@@ -628,6 +648,86 @@ button {
 }
 
 
+/* ================= QUICK VIEW PRODUCT DETAILS ================= */
+
+.quick-view-rating {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.quick-view-details {
+    margin-top: 24px;
+    padding-top: 22px;
+    border-top: 1px solid #eee;
+}
+
+.quick-view-details h4 {
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.quick-view-info .quick-view-description {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.75;
+    margin-bottom: 16px;
+}
+
+.quick-view-specs {
+    margin: 0;
+}
+
+.quick-view-specs > div {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 12px;
+    padding: 11px 0;
+    border-top: 1px solid #f0efeb;
+}
+
+.quick-view-specs > div:last-child {
+    border-bottom: 1px solid #f0efeb;
+}
+
+.quick-view-specs dt {
+    padding-top: 2px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #999;
+}
+
+.quick-view-specs dd {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #444;
+    overflow-wrap: anywhere;
+}
+
+.quick-view-specs dd.availability {
+    font-weight: 600;
+}
+
+.availability-in-stock {
+    color: #3f7a4a;
+}
+
+.availability-limited {
+    color: #a77935;
+}
+
+.availability-made-to-order {
+    color: #4a6a8a;
+}
+
+.availability-unavailable {
+    color: #b3402f;
+}
+
+
 /* ================= RESPONSIVE ================= */
 
 @media(max-width: 1000px) {
@@ -644,8 +744,16 @@ button {
         grid-template-columns: 1fr;
     }
 
-    .quick-view-image {
-        min-height: 240px;
+    /* single column: image sits on top at its natural proportions,
+       capped so the details are still reachable without a long scroll */
+    .quick-view-image-stage {
+        position: static;
+        height: auto;
+        max-height: 55vh;
+    }
+
+    .quick-view-image img {
+        max-height: 55vh;
     }
 
 }
@@ -755,6 +863,18 @@ button {
     margin-bottom: 20px;
 }
 
+.review-controls label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #999;
+}
+
 .review-controls select {
     min-width: 0;
     flex: 1;
@@ -763,6 +883,8 @@ button {
     background: #fff;
     color: #333;
     font-size: 11px;
+    letter-spacing: normal;
+    text-transform: none;
     outline: none;
 }
 
@@ -814,6 +936,14 @@ button {
     margin-bottom: 8px;
 }
 
+.review-item .review-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
 .review-item p {
     color: #777;
     font-size: 12px;
@@ -845,6 +975,11 @@ button {
         max-height: 94vh;
     }
 
+    .quick-view-image-stage,
+    .quick-view-image img {
+        max-height: 45vh;
+    }
+
     .quick-view-info {
         padding: 28px 22px;
     }
@@ -853,8 +988,17 @@ button {
         font-size: 25px;
     }
 
+    .quick-view-specs > div {
+        grid-template-columns: 1fr;
+        gap: 3px;
+    }
+
     .review-controls {
         flex-direction: column;
+    }
+
+    .review-controls label {
+        flex: auto;
     }
 
     .review-controls select {
