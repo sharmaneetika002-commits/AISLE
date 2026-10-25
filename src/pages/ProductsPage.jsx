@@ -5,6 +5,16 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import '../styles/products.css';
 
+// Maps the availability text to a CSS modifier so the status can be colour-coded.
+const getAvailabilityTone = (text = '') => {
+    const value = text.toLowerCase();
+    if (value.startsWith('in stock')) return 'in-stock';
+    if (value.startsWith('limited')) return 'limited';
+    if (value.startsWith('made to order')) return 'made-to-order';
+    if (value.startsWith('currently unavailable')) return 'unavailable';
+    return 'unknown';
+};
+
 export default function ProductsPage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { addToCart } = useCart();
@@ -111,7 +121,7 @@ export default function ProductsPage() {
 
         return list;
     }, [selectedCategories, selectedRooms, selectedStyles, selectedPrice, sortValue]);
-        
+
     const quickViewAllReviews = useMemo(
         () => quickViewProduct
             ? (demoReviews[quickViewProduct.id] || [])
@@ -148,6 +158,11 @@ export default function ProductsPage() {
                 0
             ) / quickViewAllReviews.length
         ).toFixed(1)
+        : null;
+
+    // Details for the product currently open in Quick View (not a hook, safe before return)
+    const quickViewDetails = quickViewProduct
+        ? productDetails[quickViewProduct.id]
         : null;
 
     return (
@@ -496,7 +511,7 @@ export default function ProductsPage() {
                                                         ) / cardReviews.length
                                                     ).toFixed(1)
                                                     : null;
-                                                    
+
                                                 return (
                                                     <p className="product-rating">
                                                         {cardRating
@@ -567,11 +582,16 @@ export default function ProductsPage() {
                             &times;
                         </button>
 
-                        <div className="quick-view-image">
-                            <img
-                                src={quickViewProduct.image}
-                                alt={quickViewProduct.name}
-                            />
+                        <div
+                            className="quick-view-image"
+                            style={{ '--qv-image': `url("${quickViewProduct.image}")` }}
+                        >
+                            <div className="quick-view-image-stage">
+                                <img
+                                    src={quickViewProduct.image}
+                                    alt={quickViewProduct.name}
+                                />
+                            </div>
                         </div>
 
                         <div className="quick-view-info">
@@ -601,16 +621,16 @@ export default function ProductsPage() {
                             <section className="quick-view-details">
                                 <h4>Product details</h4>
 
-                                <p>
-                                    {productDetails[quickViewProduct.id]?.description
+                                <p className="quick-view-description">
+                                    {quickViewDetails?.description
                                         || `${quickViewProduct.name} is part of the Aisle furniture collection.`}
                                 </p>
 
-                                <dl>
+                                <dl className="quick-view-specs">
                                     <div>
                                         <dt>Material</dt>
                                         <dd>
-                                            {productDetails[quickViewProduct.id]?.material
+                                            {quickViewDetails?.material
                                                 || 'Not specified in product data'}
                                         </dd>
                                     </div>
@@ -618,15 +638,19 @@ export default function ProductsPage() {
                                     <div>
                                         <dt>Dimensions</dt>
                                         <dd>
-                                            {productDetails[quickViewProduct.id]?.dimensions
+                                            {quickViewDetails?.dimensions
                                                 || 'Not specified in product data'}
                                         </dd>
                                     </div>
 
                                     <div>
                                         <dt>Availability</dt>
-                                        <dd>
-                                            {productDetails[quickViewProduct.id]?.availability
+                                        <dd
+                                            className={`availability availability-${getAvailabilityTone(
+                                                quickViewDetails?.availability
+                                            )}`}
+                                        >
+                                            {quickViewDetails?.availability
                                                 || 'Please contact us to confirm availability'}
                                         </dd>
                                     </div>
@@ -659,7 +683,8 @@ export default function ProductsPage() {
 
                                 <p className="review-demo-note">
                                     Demo reviews for project presentation only.
-                                    These are not verified customer reviews.
+                                    Reviewer names and review text are fictional and
+                                    are not verified customer reviews.
                                 </p>
 
                                 {quickViewAllReviews.length > 0 ? (
@@ -703,22 +728,31 @@ export default function ProductsPage() {
                                                     >
                                                         <div className="review-item-heading">
                                                             <strong>{review.author}</strong>
-                                                            <span className="review-stars">
-                                                                {'★'.repeat(review.rating)}
-                                                                {'☆'.repeat(5 - review.rating)}
-                                                            </span>
+
+                                                            <time dateTime={review.date}>
+                                                                {new Date(`${review.date}T00:00:00`).toLocaleDateString(
+                                                                    'en-IN',
+                                                                    {
+                                                                        day: 'numeric',
+                                                                        month: 'short',
+                                                                        year: 'numeric'
+                                                                    }
+                                                                )}
+                                                            </time>
                                                         </div>
 
-                                                        <time dateTime={review.date}>
-                                                            {new Date(`${review.date}T00:00:00`).toLocaleDateString(
-                                                                'en-IN',
-                                                                {
-                                                                    day: 'numeric',
-                                                                    month: 'short',
-                                                                    year: 'numeric'
-                                                                }
-                                                            )}
-                                                        </time>
+                                                        <span
+                                                            className="review-stars"
+                                                            role="img"
+                                                            aria-label={`${review.rating} out of 5 stars`}
+                                                        >
+                                                            {'★'.repeat(review.rating)}
+                                                            {'☆'.repeat(5 - review.rating)}
+                                                        </span>
+
+                                                        {review.title && (
+                                                            <h5 className="review-title">{review.title}</h5>
+                                                        )}
 
                                                         <p>{review.text}</p>
                                                     </article>
