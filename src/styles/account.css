@@ -985,3 +985,217 @@ a {
     font-size: 72px;
     font-weight: 500;
 }
+
+/* ===== Profile Details and Delivery Address Layout ===== */
+
+.account-form-section {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 28px;
+    padding: 24px;
+    background: var(--account-cream-white, #fffdf9);
+    border: 1px solid var(--account-border, #e7ded3);
+    border-radius: 16px;
+}
+
+.account-form-section .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.account-form-section .section-heading h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--account-espresso, #3c281e);
+}
+
+.account-action-button,
+.account-secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 1px solid var(--account-border, #d9cfc3);
+    border-radius: 24px;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.account-action-button {
+    flex-shrink: 0;
+    background: var(--account-espresso, #3c281e);
+    border-color: var(--account-espresso, #3c281e);
+    color: #fff;
+}
+
+.account-action-button:hover {
+    background: var(--account-caramel, #987456);
+    border-color: var(--account-caramel, #987456);
+}
+
+.account-secondary-button {
+    background: transparent;
+    color: var(--account-espresso, #3c281e);
+}
+
+.account-secondary-button:hover {
+    background: var(--account-cream, #f3ece3);
+}
+
+.account-info-panel {
+    padding: 20px;
+    border: 1px solid var(--account-border, #e7ded3);
+    border-radius: 12px;
+    background: #fff;
+}
+
+.account-info-panel p {
+    margin: 0 0 12px;
+    color: var(--account-brown, #4d392d);
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.account-info-panel p:last-child {
+    margin-bottom: 0;
+}
+
+.account-edit-form {
+    display: grid;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.account-edit-form label {
+    display: grid;
+    gap: 8px;
+    color: var(--account-brown, #4d392d);
+    font-size: 13px;
+}
+
+.account-edit-form input:not([type="checkbox"]),
+.account-edit-form select {
+    width: 100%;
+    min-height: 42px;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid var(--account-border, #d9cfc3);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--account-espresso, #3c281e);
+    font: inherit;
+}
+
+.saved-address-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 16px;
+}
+
+.saved-address-card {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid var(--account-border, #e7ded3);
+    border-radius: 12px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.saved-address-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.saved-address-title h3 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--account-espresso, #3c281e);
+}
+
+.default-address-tag {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #e9f3e8;
+    color: #35633a;
+    font-size: 11px;
+}
+
+.saved-address-card p {
+    margin: 0 0 8px;
+    color: var(--account-muted-brown, #76665a);
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.address-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.address-form-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.default-address-checkbox {
+    display: flex !important;
+    align-items: center;
+    gap: 10px !important;
+}
+
+.default-address-checkbox input {
+    accent-color: var(--account-espresso, #3c281e);
+}
+
+.account-muted-text {
+    color: var(--account-muted-brown, #76665a);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+    .account-form-section {
+        padding: 18px;
+    }
+
+    .saved-address-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .address-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .account-form-section .section-heading h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 420px) {
+    .account-form-section .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
