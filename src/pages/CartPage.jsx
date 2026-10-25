@@ -157,6 +157,6 @@ export default function CartPage() {
                     </aside>
                 </section>
             )}
-        </main>
+        </main> 
     );
 }
