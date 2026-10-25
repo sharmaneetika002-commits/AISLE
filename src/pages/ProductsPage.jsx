@@ -2,13 +2,23 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { products, money } from '../data/products';
 import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext';
+import { useSelector } from 'react-redux';
 import '../styles/products.css';
 
 export default function ProductsPage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { addToCart } = useCart();
-    const { isWishlisted, toggleWishlist } = useWishlist();
+    const wishlist = useSelector(
+    (state) => state.wishlist?.wishlist || []
+    );
+
+    const isWishlisted = (id) => {
+    return wishlist.some(item => item.id === id);
+    };
+
+    const toggleWishlist = (product) => {
+    console.log('Redux wishlist migration in progress', product);
+    };
 
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedRooms, setSelectedRooms] = useState(() => {

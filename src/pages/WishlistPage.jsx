@@ -1,16 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useWishlist } from '../context/WishlistContext';
+import { useSelector } from 'react-redux';
 import { formatPrice } from '../data/products';
 import '../styles/wishlist.css';
 
 export default function WishlistPage() {
-    const {
-        wishlist,
-        wishlistCount,
-        removeFromWishlist,
-        addToCartFromWishlist
-    } = useWishlist();
+    const wishlist = useSelector(
+    (state) => state.wishlist?.wishlist || []
+    );
+
+    const wishlistCount = wishlist.length;
+
+    const removeFromWishlist = () => {
+    console.log('Redux migration pending');
+    };
+
+    const addToCartFromWishlist = () => {
+    console.log('Redux migration pending');
+    };
 
     return (
         <main className="wishlist-page">
