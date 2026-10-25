@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { products, money, productDetails, demoReviews } from '../data/products';
 import { useCart } from '../context/CartContext';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleWishlist as toggleWishlistAction } from '../features/wishlist/wishlistSlice';
 import '../styles/products.css';
 
 // Maps the availability text to a CSS modifier so the status can be colour-coded.
@@ -17,18 +18,23 @@ const getAvailabilityTone = (text = '') => {
 
 export default function ProductsPage() {
     const [searchParams, setSearchParams] = useSearchParams();
+
     const { addToCart } = useCart();
+
+    const dispatch = useDispatch();
+
     const wishlist = useSelector(
-    (state) => state.wishlist?.wishlist || []
+        (state) => state.wishlist?.wishlist || []
     );
 
     const isWishlisted = (id) => {
-    return wishlist.some(item => item.id === id);
+        return wishlist.some(item => item.id === id);
     };
 
     const toggleWishlist = (product) => {
-    console.log('Redux wishlist migration in progress', product);
+        dispatch(toggleWishlistAction(product));
     };
+
 
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedRooms, setSelectedRooms] = useState(() => {
@@ -81,15 +87,15 @@ export default function ProductsPage() {
         let list = products.filter(product => {
             // Category match
             const normalizedCategory = (product.category || '')
-            .toLowerCase()
-            .trim()
-            .replace('dining tables', 'dining')
-            .replace('outdoor furniture', 'outdoor')
-            .replace('sofas', 'sofa')
-            .replace('beds', 'bed')
-            .replace('chairs', 'chair')
-            .replace('tables', 'table')
-            .replace('lamps', 'lamp');
+                .toLowerCase()
+                .trim()
+                .replace('dining tables', 'dining')
+                .replace('outdoor furniture', 'outdoor')
+                .replace('sofas', 'sofa')
+                .replace('beds', 'bed')
+                .replace('chairs', 'chair')
+                .replace('tables', 'table')
+                .replace('lamps', 'lamp');
 
             const categoryMatch =
                 selectedCategories.length === 0 ||
@@ -514,22 +520,22 @@ export default function ProductsPage() {
                                                 {(() => {
                                                     const cardReviews = demoReviews[product.id] || [];
                                                     const cardRating = cardReviews.length
-                                                    ? (
-                                                        cardReviews.reduce(
-                                                            (total, review) => total + review.rating,
-                                                            0
-                                                        ) / cardReviews.length
-                                                    ).toFixed(1)
-                                                    : null;
+                                                        ? (
+                                                            cardReviews.reduce(
+                                                                (total, review) => total + review.rating,
+                                                                0
+                                                            ) / cardReviews.length
+                                                        ).toFixed(1)
+                                                        : null;
 
-                                                return (
-                                                    <p className="product-rating">
-                                                        {cardRating
-                                                        ? `★ ${cardRating} (${cardReviews.length} sample reviews)`
-                                                        : 'No reviews yet'}
+                                                    return (
+                                                        <p className="product-rating">
+                                                            {cardRating
+                                                                ? `★ ${cardRating} (${cardReviews.length} sample reviews)`
+                                                                : 'No reviews yet'}
                                                         </p>
-                                                        );
-                                                        })()}
+                                                    );
+                                                })()}
 
                                                 <div className="card-buttons">
                                                     <button

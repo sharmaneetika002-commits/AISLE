@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';import { useAuth } from '../context/AuthContext';
 import '../styles/navbar.css';
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();
-    const cartCount = useSelector(
-    (state) => state.cart?.cart?.length || 0
-);
+   const { cartCount } = useCart();
     const { isSignedIn, userName } = useAuth();
 
     const currentPath = location.pathname;
